@@ -7,6 +7,9 @@ class Autor(models.Model):
 	def __str__(self):
 		return self.nombre
 
+	class Meta:
+		verbose_name_plural = 'Autores' # Nombre a mostrar en admin
+
 class Libro(models.Model):
 	isbn = models.CharField(max_length=13, unique=True)
 	titulo = models.CharField(max_length=200)
