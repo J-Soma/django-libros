@@ -18,21 +18,34 @@
 				<a class="uk-navbar-item uk-logo" href="{% url 'index' %}" aria-label="Regresar al inicio">Libros</a>
 				
 				<div class="uk-navbar-item">
-					<form class="uk-search uk-search-default" action="" method="get">
-						<a class="uk-search-icon-flip" href="" uk-search-icon></a>
-						<input class="uk-search-input" type="search" placeholder="ISBN, titulo, autor" aria-label="Buscar libro">
+					<form class="uk-search uk-search-default" action="{% url 'buscar' %}" method="get" id="busqueda">
+						<a class="uk-search-icon-flip" onclick="document.getElementById('busqueda').submit()" uk-search-icon></a>
+						<input class="uk-search-input" type="search" placeholder="ISBN, titulo, autor" name="q" aria-label="Buscar libro">
 					</form>
 				</div>
 			</div>
 			<div class="uk-navbar-right uk-margin-medium-right">
 				<ul class="uk-navbar-nav">
-					<li><a href="{% url 'index' %}">Iniciar sesión</a></li>
-					<li><a href="{% url 'index' %}">Registrarse</a></li>
+					{% if user.is_authenticated %}
+					<li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+					{% else %}
+					<li><a href="{% url 'login' %}">Iniciar sesión</a></li>
+					<li><a href="{% url 'registro' %}">Registrarse</a></li>
+					{% endif %}
 				</ul>
 			</div>
 		</nav>
 
-		<div class="uk-container">
+		<div class="uk-container uk-margin-top">
+			{% if messages %}
+				{% for message in messages %}
+				<div class="uk-alert-danger" uk-alert>
+					<a class="uk-alert-close" uk-close></a>
+					<p>{{message}}</p>
+				</div>
+				{% endfor %}
+			{% endif %}
+
 			{% block body %}
 			{% endblock %}
 		</div>
