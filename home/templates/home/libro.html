@@ -1,0 +1,15 @@
+{% extends "home/base.html" %}
+
+{% block titulo %}Resultados de b&uacute;squeda{% endblock %}
+
+{% block body %}
+    <dl class="uk-description-list uk-description-list-divider"></dl>
+    {% if libro %}
+        <dt>Titulo: {{libro.titulo}}</dt>
+        <dd>ISBN: {{libro.isbn}}</dd>
+        <dd>Autor/es: {% for autor in libro.autores.all %}{{autor}}{% endfor %}</dd>
+    {% else %}
+    <dt>Error: No existe un libro con ese isbn</dt>
+    {% endif %}
+</dl>
+{% endblock %}
