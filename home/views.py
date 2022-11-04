@@ -3,8 +3,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .forms import LoginForm, RegistroForm
-from .models import Libro, Autor
+from .forms import LoginForm, RegistroForm, ComentarioForm
+from .models import Libro, Autor, Comentario
 from django.contrib.auth.models import User
 from django.db.models import Q
 
@@ -80,10 +80,25 @@ def buscar(request):
 
 		return render(request, 'home/buscar.html', {'libros':libros})
 
+
 def libro(request, isbn):
 	try:
 		libro = Libro.objects.get(isbn=isbn)
 	except:
 		libro = None
 
-	return render(request, 'home/libro.html', {'libro': libro})
+	if request.method == 'POST':
+		
+		form = ComentarioForm(request.POST)
+
+		if form.is_valid():
+			c = Comentario(libro=libro,
+							usuario=User.objects.get(pk=request.user.id),
+							mensaje=form.cleaned_data['comentario'])
+			c.save()
+
+			return HttpResponseRedirect(reverse('libro', args=(libro.isbn,)))
+	else:
+		form = ComentarioForm()
+
+	return render(request, 'home/libro.html', {'libro': libro, 'form': form})
