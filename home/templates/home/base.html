@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+	{% load static %}
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.15.11/dist/css/uikit.min.css" />
+		<link rel="stylesheet" href="{% static 'home/style.css' %}">
+
+		<title>Libros - {% block titulo %}{% endblock %}</title>
+	</head>
+
+	<body>
+		<nav class="uk-navbar-container" uk-navbar>
+			<div class="uk-navbar-left uk-margin-medium-left">
+				<a class="uk-navbar-item uk-logo" href="{% url 'index' %}" aria-label="Regresar al inicio">Libros</a>
+				
+				<div class="uk-navbar-item">
+					<form class="uk-search uk-search-default" action="" method="get">
+						<a class="uk-search-icon-flip" href="" uk-search-icon></a>
+						<input class="uk-search-input" type="search" placeholder="ISBN, titulo, autor" aria-label="Buscar libro">
+					</form>
+				</div>
+			</div>
+			<div class="uk-navbar-right uk-margin-medium-right">
+				<ul class="uk-navbar-nav">
+					<li><a href="{% url 'index' %}">Iniciar sesión</a></li>
+					<li><a href="{% url 'index' %}">Registrarse</a></li>
+				</ul>
+			</div>
+		</nav>
+
+		<div class="uk-container">
+			{% block body %}
+			{% endblock %}
+		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/uikit@3.15.11/dist/js/uikit.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/uikit@3.15.11/dist/js/uikit-icons.min.js"></script>
+	</body>
+</html>
