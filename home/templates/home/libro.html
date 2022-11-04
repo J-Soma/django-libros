@@ -11,5 +11,34 @@
     {% else %}
     <dt>Error: No existe un libro con ese isbn</dt>
     {% endif %}
-</dl>
+    </dl>
+
+    <hr class="uk-divider-icon uk-margin">
+
+    {% if libro %}
+    <form action="{% url 'libro' libro.isbn %}" method="post">
+        <fieldset class="uk-fieldset">
+            <legend class="uk-legend">Agregar un comentario</legend>
+
+            {% csrf_token %}
+            {% for campo in form %}
+                <div class="uk-margin">
+                    <label for="{{campo.auto_id}}" class="uk-form-label">{{campo.label}}</label>
+                    {{campo}}
+                </div>
+            {% endfor %}
+            <button type="submit" class="uk-button uk-button-primary">Guardar comentario</button>
+        </fieldset>
+    </form>
+
+    <hr class="uk-divider-icon uk-margin">
+
+    <h2>Comentarios</h2>
+    {% for comentario in libro.comentarios.all %}
+        <dl class="uk-description-list uk-description-list-divider"></dl>
+            <dt>{{comentario.usuario.username}}</dt>
+            <dd>{{comentario.mensaje}}</dd>
+        </dl>
+    {% endfor %}
+    {% endif %}
 {% endblock %}
