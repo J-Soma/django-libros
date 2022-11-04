@@ -1,0 +1,15 @@
+{% extends "home/base.html" %}
+
+{% block titulo %}Resultados de b&uacute;squeda{% endblock %}
+
+{% block body %}
+<dl class="uk-description-list uk-description-list-divider">
+    {% for libro in libros %}
+        <a href="{% url 'libro' libro.isbn %}"><dt>{{libro.titulo}}</dt></a>
+        <dd>{{libro.isbn}} - {% for autor in libro.autores.all %}{{autor.nombre}}, {% endfor %}</dd>
+    {% empty %}
+        <dt>No hay resultados.</dt>
+        <dd>Los datos de b&uacute;squeda ingresados no han devuelto resultados. Intenta con otra consulta.</dd>
+    {% endfor %}
+</dl>
+{% endblock %}
