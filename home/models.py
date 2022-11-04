@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Autor(models.Model):
@@ -19,3 +20,8 @@ class Libro(models.Model):
 
 	def __str__(self):
 		return f'{self.isbn} - {self.titulo}, {self.fecha_pub}'
+
+class Comentario(models.Model):
+	libro = models.ForeignKey(Libro, on_delete=models.CASCADE, related_name='comentarios')
+	usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comentarios')
+	mensaje = models.CharField(max_length=200)
