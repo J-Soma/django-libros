@@ -19,3 +19,8 @@ class RegistroForm(forms.Form):
     usuario.widget = forms.TextInput(attrs=estilo_defecto)
     clave.widget = forms.PasswordInput(attrs=estilo_defecto)
     confirmacion.widget = forms.PasswordInput(attrs=estilo_defecto)
+
+class ComentarioForm(forms.Form):
+    comentario = forms.CharField(label='Comentario', max_length=200)
+
+    comentario.widget = forms.Textarea(attrs={'class':'uk-textarea uk-form-small'})
