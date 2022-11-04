@@ -1,0 +1,20 @@
+{% extends "home/base.html" %}
+
+{% block titulo %}Iniciar sesi&oacute;n{% endblock %}
+
+{% block body %}
+<form action="{% url 'login' %}" method="post">
+    <fieldset class="uk-fieldset">
+        <legend class="uk-legend">Iniciar sesi&oacute;n</legend>
+
+        {% csrf_token %}
+        {% for campo in form %}
+            <div class="uk-margin">
+                <label for="{{campo.auto_id}}" class="uk-form-label">{{campo.label}}</label>
+                {{campo}}
+            </div>
+        {% endfor %}
+    </fieldset>
+    <button type="submit" class="uk-button uk-button-primary">Iniciar sesión</button>
+</form>
+{% endblock %}
